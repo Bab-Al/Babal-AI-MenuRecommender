@@ -42,17 +42,17 @@ def extract_menu(gender, age, categories):
     # 사용자 벡터 구하기
     user_data = pd.read_csv('data\\preffered_data.csv', encoding='cp949')
     filtered_user_data = user_data[(user_data['성별'] == gender) & (user_data['연령'] == age)]
-    user_preffered_energy = filtered_user_data['필요 추정 에너지(kcal/일)'].values[0] / 3
-    user_preffered_carbo = filtered_user_data['권장 섭취 탄수화물량(g/일)'].values[0] /3
-    user_preffered_protein = filtered_user_data['권장 섭취 단백질량(g/일)'].values[0] / 3
-    user_preffered_fat = filtered_user_data['권장 섭취 지방량(g/일)'].values[0] / 3
+    user_preferred_energy = filtered_user_data['필요 추정 에너지(kcal/일)'].values[0] / 3
+    user_preferred_carbo = filtered_user_data['권장 섭취 탄수화물량(g/일)'].values[0] /3
+    user_preferred_protein = filtered_user_data['권장 섭취 단백질량(g/일)'].values[0] / 3
+    user_preferred_fat = filtered_user_data['권장 섭취 지방량(g/일)'].values[0] / 3
 
-    normalized_user_preffered_energy = (user_preffered_energy - kcal_min) / (kcal_max - kcal_min)
-    normalized_user_preffered_carbo = (user_preffered_carbo - carbo_min) / (carbo_max - carbo_min)
-    normalized_user_preffered_protein = (user_preffered_protein - protein_min) / (protein_max - protein_min)
-    normalized_user_preffered_fat = (user_preffered_fat - fat_min) / (fat_max - fat_min)
+    normalized_user_preferred_energy = (user_preferred_energy - kcal_min) / (kcal_max - kcal_min)
+    normalized_user_preferred_carbo = (user_preferred_carbo - carbo_min) / (carbo_max - carbo_min)
+    normalized_user_preferred_protein = (user_preferred_protein - protein_min) / (protein_max - protein_min)
+    normalized_user_preferred_fat = (user_preferred_fat - fat_min) / (fat_max - fat_min)
 
-    user_vector = np.array([normalized_user_preffered_energy, normalized_user_preffered_carbo, normalized_user_preffered_protein, normalized_user_preffered_fat])
+    user_vector = np.array([normalized_user_preferred_energy, normalized_user_preferred_carbo, normalized_user_preferred_protein, normalized_user_preferred_fat])
     
     # 각 음식과 사용자 벡터 간의 코사인 유사도 계산
     cosine_similarities = np.dot(food_vectors, user_vector) / (np.linalg.norm(food_vectors, axis=1) * np.linalg.norm(user_vector))
